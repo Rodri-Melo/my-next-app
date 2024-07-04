@@ -18,13 +18,19 @@ Este projeto é um exemplo de uma aplicação front-end utilizando Next.js e est
 
 ## Como Executar o Projeto
 
-1 - Instalação das Dependências
+1- Clone o projeto 
+
+```bash
+git@github.com:Rodri-Melo/my-next-app.git
+```
+
+2 - Instalação das Dependências
 
 ```bash
 npm install
 ```
 
-2 - Executar Localmente
+3 - Executar Localmente
 
 ```bash
 npm run dev
@@ -32,6 +38,7 @@ npm run dev
 
 O projeto estará disponível em http://localhost:3000.
 
-##Considerações
+## Considerações
+
 Este projeto foi desenvolvido como parte de um teste técnico para demonstrar habilidades em React, Next.js, Tailwind CSS e gerenciamento de estado com useState e useEffect. A implementação de cache dos produtos na página inicial por 2 minutos foi realizada para otimizar o desempenho da aplicação.
 
