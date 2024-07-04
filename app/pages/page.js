@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import { useEffect, useState } from 'react'
 import { items } from '../mockData/page'
@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const fetchItems = async () => {
-  return items
+  return items 
 }
 
 export default function HomePage() {
@@ -27,7 +27,17 @@ export default function HomePage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const itemsData = await fetchItems()
+      let itemsData = JSON.parse(localStorage.getItem('cachedItems'))
+      const cacheTimestamp = localStorage.getItem('cacheTimestamp')
+      const now = Date.now()
+
+      if (!itemsData || !cacheTimestamp || (now - parseInt(cacheTimestamp) > 120000)) {
+        
+        itemsData = await fetchItems()
+        localStorage.setItem('cachedItems', JSON.stringify(itemsData))
+        localStorage.setItem('cacheTimestamp', now.toString())
+      }
+
       setData(itemsData)
     }
 
