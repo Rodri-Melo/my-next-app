@@ -1,6 +1,9 @@
 # Projeto Front-end com Next.js e Tailwind CSS
 
-Este projeto é um exemplo de uma aplicação front-end utilizando Next.js e estilização com Tailwind CSS. A aplicação consiste em uma página inicial (Home) que exibe produtos fictícios e permite aos usuários adicionar esses produtos a um carrinho de compras simulado.
+Este projeto é um exemplo de uma aplicação front-end utilizando Next.js e estilização com Tailwind CSS com responsivividade. A aplicação consiste em uma página inicial (Home) que exibe produtos fictícios e permite aos usuários adicionar esses produtos a um carrinho de compras simulado.
+
+![home](https://i.imgur.com/6U8EWmX.jpeg)
+
 
 ## Funcionalidades
 
