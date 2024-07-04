@@ -4,7 +4,7 @@ Este projeto é um exemplo de uma aplicação front-end utilizando Next.js e est
 
 ## Funcionalidades
 
-• Exibição de produtos com nome, imagem, preço e descrição.
+• Exibição de produtos com nome, imagem, preço e descrição.  
 • Adição e remoção de produtos ao carrinho de compras.
 • Notificações de sucesso e informações utilizando React Toastify.
 • Armazenamento local dos itens do carrinho utilizando localStorage.
