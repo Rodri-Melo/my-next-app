@@ -1,5 +1,3 @@
-"use client"
-
 import { useEffect, useState } from 'react'
 import { items } from '../mockData/page'
 import Image from 'next/image'
@@ -8,22 +6,25 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const fetchItems = async () => {
-  return items 
+  return items
 }
 
-export default function HomePage() {
-  const [data, setData] = useState([])
-  const [cartItems, setCartItems] = useState(() => {
+export default function HomePage({ initialCartItems, setCartItems }) {
+  const [data, setData] = useState([]);
+  const [localCartItems, setLocalCartItems] = useState(() => {
     if (typeof window !== 'undefined') {
-      const savedCartItems = localStorage.getItem('cartItems')
-      return savedCartItems ? JSON.parse(savedCartItems) : []
+      const savedCartItems = localStorage.getItem('cartItems');
+      return savedCartItems ? JSON.parse(savedCartItems) : [];
     }
-    return []
-  })
+    return [];
+  });
 
+ 
   useEffect(() => {
-    localStorage.setItem('cartItems', JSON.stringify(cartItems))
-  }, [cartItems])
+    if (initialCartItems && initialCartItems.length > 0) {
+      setLocalCartItems(initialCartItems);
+    }
+  }, [initialCartItems]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,8 +32,11 @@ export default function HomePage() {
       const cacheTimestamp = localStorage.getItem('cacheTimestamp')
       const now = Date.now()
 
-      if (!itemsData || !cacheTimestamp || (now - parseInt(cacheTimestamp) > 120000)) {
-        
+      if (
+        !itemsData ||
+        !cacheTimestamp ||
+        now - parseInt(cacheTimestamp) > 120000
+      ) {
         itemsData = await fetchItems()
         localStorage.setItem('cachedItems', JSON.stringify(itemsData))
         localStorage.setItem('cacheTimestamp', now.toString())
@@ -45,10 +49,14 @@ export default function HomePage() {
   }, [])
 
   const addItemToCart = (item) => {
-    const newCartItems = [...cartItems, item]
-    setCartItems(newCartItems)
+    const newCartItems = [...localCartItems, item]
+    setLocalCartItems(newCartItems)
+    setCartItems(newCartItems) 
+
+    localStorage.setItem('cartItems', JSON.stringify(newCartItems))
+
     toast.success(`${item.name} foi adicionado ao carrinho!`, {
-      position: "bottom-right",
+      position: 'bottom-right',
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -59,10 +67,16 @@ export default function HomePage() {
   }
 
   const removeItemFromCart = (itemToRemove) => {
-    const updatedCartItems = cartItems.filter((item) => item.id !== itemToRemove.id)
-    setCartItems(updatedCartItems)
+    const updatedCartItems = localCartItems.filter(
+      (item) => item.id !== itemToRemove.id
+    )
+    setLocalCartItems(updatedCartItems)
+    setCartItems(updatedCartItems) 
+
+    localStorage.setItem('cartItems', JSON.stringify(updatedCartItems))
+
     toast.info(`${itemToRemove.name} foi removido do carrinho!`, {
-      position: "bottom-right",
+      position: 'bottom-right',
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -71,8 +85,6 @@ export default function HomePage() {
       progress: undefined,
     })
   }
-
-  console.log(cartItems)
 
   return (
     <main className="bg-white-background min-h-screen flex flex-col justify-center items-center">
@@ -109,7 +121,7 @@ export default function HomePage() {
                 </div>
                 <AddToCartButton
                   item={item}
-                  cartItems={cartItems}
+                  cartItems={localCartItems} 
                   addItemToCart={addItemToCart}
                   removeItemFromCart={removeItemFromCart}
                 />

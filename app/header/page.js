@@ -1,39 +1,17 @@
-'use client'
+import React, { useState, useEffect } from 'react';
+import { BsCart3 } from 'react-icons/bs';
+import Link from 'next/link';
+import Image from 'next/image';
+import LogoImage from '../../public/logo.jpg';
 
-import React, { useState, useEffect, useRef } from 'react'
-import { BsCart3 } from 'react-icons/bs'
-import Link from 'next/link'
-import Image from 'next/image'
-import LogoImage from '../../public/logo.jpg'
-
-export default function Header() {
-  const [cartItemCount, setCartItemCount] = useState(0)
-  const previousItemCountRef = useRef(0)
+export default function Header({ cartItems }) {
+  const [cartItemCount, setCartItemCount] = useState(0);
 
   useEffect(() => {
-    const updateCartItemCount = () => {
-      const savedCartItems = localStorage.getItem('cartItems')
-      if (savedCartItems) {
-        const items = JSON.parse(savedCartItems)
-        const newCount = items.length
-        setCartItemCount(newCount)
-
-        if (newCount !== previousItemCountRef.current) {
-          previousItemCountRef.current = newCount
-        }
-      } else {
-        setCartItemCount(0)
-      }
+    if (cartItems) {
+      setCartItemCount(cartItems.length);
     }
-
-    updateCartItemCount()
-
-    window.addEventListener('storage', updateCartItemCount)
-
-    return () => {
-      window.removeEventListener('storage', updateCartItemCount)
-    }
-  }, [])
+  }, [cartItems]);
 
   return (
     <header className="border-b-2 border-custom-grey p-5 flex bg-custom-offWhite">
@@ -42,7 +20,7 @@ export default function Header() {
           className="sm:text-2xl md:text-2xl lg:text-3xl text-custom-purple flex items-center justify-center"
           style={{ width: '35%', marginRight: '35%', marginLeft: '0%' }}
         >
-           <Image src={LogoImage} alt="Logo" className="h-13"  /> 
+          <Image src={LogoImage} alt="Logo" className="h-13" />
         </div>
         <div
           className="text-red flex items-center justify-center relative"
@@ -68,5 +46,5 @@ export default function Header() {
         </div>
       </div>
     </header>
-  )
+  );
 }
