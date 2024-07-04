@@ -2,21 +2,22 @@
 
 Este projeto é um exemplo de uma aplicação front-end utilizando Next.js e estilização com Tailwind CSS. A aplicação consiste em uma página inicial (Home) que exibe produtos fictícios e permite aos usuários adicionar esses produtos a um carrinho de compras simulado.
 
-##Funcionalidades
+## Funcionalidades
 • Exibição de produtos com nome, imagem, preço e descrição.
 • Adição e remoção de produtos ao carrinho de compras.
 • Notificações de sucesso e informações utilizando React Toastify.
 • Armazenamento local dos itens do carrinho utilizando localStorage.
 • Cache dos produtos na página inicial por 2 minutos para melhorar o desempenho.
 
-##Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 • Next.js: Framework React para renderização do lado do servidor e do cliente.
 • Tailwind CSS: Framework CSS utilitário para estilização rápida e responsiva.
 • React Toastify: Componente React para notificações de usuário.
 • Mock Data: Dados fictícios são utilizados para simular os produtos exibidos na página.
 
-Como Executar o Projeto
+## Como Executar o Projeto
+
 1 - Instalação das Dependências
 
 ```bash
